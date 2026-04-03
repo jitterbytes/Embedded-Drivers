@@ -3,16 +3,20 @@
 
 #include <stdint.h>
 
-// GPIO directions
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void dht11_gpio_set_output(int pin);
 void dht11_gpio_set_input(int pin);
-
-// GPIO read/write
 void dht11_gpio_write(int pin, int level);
 int dht11_gpio_read(int pin);
 
-// Timing
 void dht11_delay_us(uint32_t us);
 uint32_t dht11_get_time_us(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
