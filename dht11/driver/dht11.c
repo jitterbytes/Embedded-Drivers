@@ -34,15 +34,15 @@ int dht11_read(dht11_t *dev, dht11_data_t *data) {
     // --- SENSOR HANDSHAKE (outside interrupt lock, these are long pulses) ---
     // Confirm line is HIGH before watching for sensor response
 	if (wait_for_level(dev->pin, 1, DHT11_TIMEOUT_RESPONSE_US))
-		return DHT11_ERR_RESPONSE_LOW;   // line stuck low — wiring problem
+		return DHT11_ERR_LINE_STUCK;   // line stuck low — wiring problem
 
 	// Sensor pulls LOW ~80us
 	if (wait_for_level(dev->pin, 0, DHT11_TIMEOUT_RESPONSE_US))
-		return DHT11_ERR_RESPONSE_HIGH;
+		return DHT11_ERR_RESPONSE_LOW;
 
 	// Sensor releases HIGH ~80us  
 	if (wait_for_level(dev->pin, 1, DHT11_TIMEOUT_RESPONSE_US))
-		return DHT11_ERR_RESPONSE_END;
+		return DHT11_ERR_RESPONSE_HIGH;
 
 	// Sensor pulls LOW — data starts
 	if (wait_for_level(dev->pin, 0, DHT11_TIMEOUT_RESPONSE_US))
