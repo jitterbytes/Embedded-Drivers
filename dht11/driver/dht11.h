@@ -9,13 +9,14 @@ extern "C" {
 
 // Error codes — tells you exactly where it failed
 typedef enum {
-    DHT11_OK               =  0,
-    DHT11_ERR_RESPONSE_LOW = -1,  // sensor didn't pull LOW after start signal
-    DHT11_ERR_RESPONSE_HIGH= -2,  // sensor didn't pull HIGH (80us ack)
-    DHT11_ERR_RESPONSE_END = -3,  // sensor didn't release line before data
-    DHT11_ERR_BIT_PREAMBLE = -4,  // bit preamble (50us LOW) timed out
-    DHT11_ERR_BIT_TIMING   = -5,  // bit HIGH pulse timed out
-    DHT11_ERR_CHECKSUM     = -6,  // data received but corrupted
+    DHT11_OK                =  0,
+    DHT11_ERR_LINE_STUCK    = -1,  // line didn't go HIGH after MCU released — wiring/short
+    DHT11_ERR_RESPONSE_LOW  = -2,  // sensor didn't pull LOW (sensor not responding)
+    DHT11_ERR_RESPONSE_HIGH = -3,  // sensor didn't pull HIGH (80us ack missing)
+    DHT11_ERR_DATA_START    = -4,  // sensor didn't pull LOW to start data
+    DHT11_ERR_BIT_PREAMBLE  = -5,  // bit preamble (50us LOW) timed out
+    DHT11_ERR_BIT_TIMING    = -6,  // bit HIGH pulse timed out
+    DHT11_ERR_CHECKSUM      = -7,  // data corrupted
 } dht11_err_t;
 
 typedef struct { int pin; } dht11_t;

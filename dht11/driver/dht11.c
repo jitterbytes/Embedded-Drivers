@@ -32,17 +32,21 @@ int dht11_read(dht11_t *dev, dht11_data_t *data) {
     dht11_gpio_set_input(dev->pin); // now listen
 
     // --- SENSOR HANDSHAKE (outside interrupt lock, these are long pulses) ---
-    // Sensor pulls LOW ~80us
-    if (wait_for_level(dev->pin, 0, DHT11_TIMEOUT_RESPONSE_US))
-        return DHT11_ERR_RESPONSE_LOW;
+    // Confirm line is HIGH before watching for sensor response
+	if (wait_for_level(dev->pin, 1, DHT11_TIMEOUT_RESPONSE_US))
+		return DHT11_ERR_RESPONSE_LOW;   // line stuck low — wiring problem
 
-    // Sensor pulls HIGH ~80us
-    if (wait_for_level(dev->pin, 1, DHT11_TIMEOUT_RESPONSE_US))
-        return DHT11_ERR_RESPONSE_HIGH;
+	// Sensor pulls LOW ~80us
+	if (wait_for_level(dev->pin, 0, DHT11_TIMEOUT_RESPONSE_US))
+		return DHT11_ERR_RESPONSE_HIGH;
 
-    // Sensor releases LOW — data phase begins
-    if (wait_for_level(dev->pin, 0, DHT11_TIMEOUT_RESPONSE_US))
-        return DHT11_ERR_RESPONSE_END;
+	// Sensor releases HIGH ~80us  
+	if (wait_for_level(dev->pin, 1, DHT11_TIMEOUT_RESPONSE_US))
+		return DHT11_ERR_RESPONSE_END;
+
+	// Sensor pulls LOW — data starts
+	if (wait_for_level(dev->pin, 0, DHT11_TIMEOUT_RESPONSE_US))
+		return DHT11_ERR_DATA_START;
 
     // --- READ 40 BITS (timing critical — disable interrupts) ---
     dht11_disable_interrupts();
