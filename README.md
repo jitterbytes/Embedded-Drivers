@@ -14,10 +14,7 @@ Drivers are primarily developed and tested on Arduino-compatible platforms, with
 - Support a wide range of embedded platforms over time
 
 ## 📂 Structure
-Each driver follows a consistent structure:
-- `src/` → Driver implementation  
-- `examples/` → Example usage  
-- `README.md` → Documentation  
+Each driver is organized as an independent library.
 
 ## 🚧 Status
 This project is currently in early development. Drivers will be added progressively.
