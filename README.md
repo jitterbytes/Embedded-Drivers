@@ -1,26 +1,26 @@
 # Embedded Drivers
-
-Building portable embedded drivers from scratch, focusing on clean architecture, reusability, and cross-platform support.
+Embedded drivers for sensors and peripherals, designed with clean and reusable APIs.
 
 ## 📌 Overview
-This repository contains platform-independent drivers for sensors and peripherals.  
-Each driver is designed with a clear separation between core logic and platform-specific implementation.
+This repository contains lightweight driver libraries for embedded systems.  
+The focus is on simplicity, consistency, and ease of use while maintaining clean design practices.
+
+Drivers are primarily developed and tested on Arduino-compatible platforms, with scope for extension to other environments.
 
 ## 🎯 Goals
-- Develop reusable and portable embedded drivers
-- Maintain clean hardware abstraction (HAL-based design)
-- Support multiple platforms (Arduino, ESP-IDF, etc.)
-- Build a strong foundation in embedded systems design
+- Build simple and reliable sensor drivers
+- Maintain consistent and easy-to-use APIs
+- Ensure code is clean, readable, and reusable
+- Support a wide range of embedded platforms over time
 
 ## 📂 Structure
 Each driver follows a consistent structure:
-
-- `driver/` → Core driver logic (platform-independent)  
-- `platform/` → Platform-specific implementations  
-- `examples/` → Usage examples for different platforms  
+- `src/` → Driver implementation  
+- `examples/` → Example usage  
+- `README.md` → Documentation  
 
 ## 🚧 Status
-This project is currently in early development. Drivers and platform support will be added progressively.
+This project is currently in early development. Drivers will be added progressively.
 
 ## 📜 License
 MIT License
